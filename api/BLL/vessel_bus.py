@@ -14,18 +14,14 @@ class VesselBus:
       return self._repo.get_vessel_by_code(vessel_code = vessel_code)
 
   def create_vessel(self, vessel_create: VesselCreate):
-    if self._vessel_exists(vessel_create.code):
+    if self.get_vessel_by_code(vessel_create.code):
       return None
     else:
       return self._repo.create_vessel(vessel_create)
 
   def delete_vessel(self, vessel_delete: VesselDelete):
-    vessel_delete = self._vessel_exists(vessel_delete.code)
+    vessel_delete = self.get_vessel_by_code(vessel_delete.code)
     if not vessel_delete:
       return None
     else:
       return self._repo.delete_vessel(vessel_delete)
-
-
-  def _vessel_exists(self,vessel_code: str):
-    return self._repo.get_vessel_by_code(vessel_code = vessel_code)

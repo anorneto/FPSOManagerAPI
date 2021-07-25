@@ -8,7 +8,6 @@ class EquipmentRepo:
   def __init__(self, db: Session):
     self._db = db
 
-
   def create_equipment(self, vessel_id: int, equipment_create: EquipmentCreate) -> Equipment:
     db_new_equipment = Equipment( **equipment_create, vessel_id = vessel_id)
     self._db.add(db_new_equipment)
