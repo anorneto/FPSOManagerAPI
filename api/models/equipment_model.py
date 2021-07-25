@@ -13,7 +13,7 @@ class Equipment(Base):
     name = Column(String, nullable=False)
     location = Column(String, nullable=False)
     is_active = Column(Boolean, index=True, default=True)
-    vessel_id = Column(Integer, ForeignKey("vessels.id"))
+    vessel_id = Column(Integer, ForeignKey("vessels.id"), index=True)
 
     create_date = Column(DateTime, default=datetime.datetime.now)
     update_date = Column(DateTime,onupdate=datetime.datetime.now)
