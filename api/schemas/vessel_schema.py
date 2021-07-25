@@ -2,7 +2,7 @@ from typing import List
 
 from pydantic import BaseModel
 
-from .equipment_schema import Equipment
+from .equipment_schema import EquipmentRead
 
 class VesselBase(BaseModel):
   code: str
@@ -11,11 +11,13 @@ class VesselCreate(VesselBase):
   pass;
 
 class VesselDelete(VesselBase):
+  is_active: bool = False
   pass;
 
-class Vessel(VesselBase):
+class VesselRead(VesselBase):
   id: int
-  equipments: List[Equipment] = []
+  is_active: bool
+  equipments: List[EquipmentRead] = []
 
   class Config:
     orm_mode = True

@@ -13,7 +13,7 @@ class Vessel(Base):
     is_active = Column(Boolean, index=True, default=True)
 
     create_date = Column(DateTime, default=datetime.datetime.now)
-    update_date = Column(DateTime,onupdate=datetime.datetime.now)
+    update_date = Column(DateTime, onupdate=datetime.datetime.now)
     delete_date = Column(DateTime)
 
     equipments = relationship("Equipment", back_populates="owner")

@@ -14,7 +14,7 @@ class EquipmentUpdate(EquipmentBase):
 class EquipmentDelete(EquipmentBase):
   pass
 
-class Equipment(EquipmentBase):
+class EquipmentRead(EquipmentBase):
   name: str
   location: str
   is_active: bool

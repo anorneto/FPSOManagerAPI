@@ -5,6 +5,9 @@ from fastapi import FastAPI
 from api.settings import ApiSettings
 from api.routers import vessel_route,equipment_route
 
+import api.database as db
+
+db.Base.metadata.create_all(bind=db.engine)
 
 api_settings = ApiSettings()
 

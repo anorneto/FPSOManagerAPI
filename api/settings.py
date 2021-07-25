@@ -1,4 +1,5 @@
 from pydantic import BaseSettings
+from fastapi import HTTPException, status
 
 class ApiSettings(BaseSettings):
   api_name : str = "FPSOManagerAPI"
@@ -8,6 +9,6 @@ class ApiSettings(BaseSettings):
 
 
 
-class RoutersSettings(BaseSettings):
-  vessels_route : str = "/vessels"
-  equipments_route: str = "/equipments"
+class RouteSettings():
+  vessels: str = "/vessels"
+  equipments: str = "/equipments"

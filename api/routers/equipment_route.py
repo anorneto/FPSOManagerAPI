@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 
-from api.settings import RoutersSettings
+from api.settings import RouteSettings
 
-router_settings = RoutersSettings()
+route_settings = RouteSettings()
 
-router = APIRouter(prefix = router_settings.vessels_route)
+router = APIRouter(prefix = route_settings.equipments)
 
 @router.get("/equipments")
 async def get_vessles():
