@@ -37,6 +37,6 @@ setup(
     python_requires='>=3.6',
     install_requires=['fastapi', 'uvicorn', 'pydantic','sqlalchemy'],
     entry_points={
-        'console_scripts': ['fpso-manager=api.__main__:main']
+        'console_scripts': ['fpso-manager=main:main']
     },
 )
