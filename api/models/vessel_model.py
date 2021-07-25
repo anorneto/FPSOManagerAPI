@@ -14,6 +14,5 @@ class Vessel(Base):
 
     create_date = Column(DateTime, default=datetime.datetime.now)
     update_date = Column(DateTime, onupdate=datetime.datetime.now)
-    delete_date = Column(DateTime)
 
     equipments = relationship("Equipment", back_populates="owner")

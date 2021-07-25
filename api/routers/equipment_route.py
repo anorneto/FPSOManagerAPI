@@ -1,5 +1,6 @@
 from typing import List
 from fastapi import APIRouter,Depends,status
+from fastapi.responses import Response
 
 from api.settings import RouteSettings
 from api.database import get_db
@@ -10,7 +11,7 @@ route_settings = RouteSettings()
 
 router = APIRouter(prefix = route_settings.vessels)
 
-@router.get("/{vessel_code}" + route_settings.equipments)
+@router.get("/{vessel_code}" + route_settings.equipments, response_model=List[EquipmentRead], status_code= status.HTTP_200_OK)
 async def get_vessel_equipments(vessel_code:str, filter_inactive: bool = True, db = Depends( get_db)):
   bus = EquipmentBus(db)
   db_active_equipments_list = bus.get_equipments(vessel_code= vessel_code, filter_inactive= filter_inactive)
@@ -28,8 +29,7 @@ async def update_vessel_equipment(vessel_code:str, equipment_update: EquipmentUp
   db_equipment = bus.update_equipment(vessel_code= vessel_code, equipment_update= equipment_update)
   return db_equipment
 
-@router.delete("/{vessel_code}" + route_settings.equipments, response_model=EquipmentRead, status_code= status.HTTP_204_NO_CONTENT)
+@router.delete("/{vessel_code}" + route_settings.equipments, response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
 async def delete_vessel_equipment(vessel_code:str, eqps_delete_list: List[EquipmentDelete], db = Depends( get_db)):
   bus = EquipmentBus(db)
-  db_equipment_list = bus.delete_equipment(vessel_code= vessel_code, eqps_delete_list= eqps_delete_list)
-  return db_equipment_list
+  bus.delete_equipment(vessel_code= vessel_code, eqps_delete_list= eqps_delete_list)

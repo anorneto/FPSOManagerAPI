@@ -1,5 +1,6 @@
 from typing import List
 from fastapi import APIRouter,Depends,status
+from fastapi.responses import Response
 
 from api.settings import RouteSettings
 from api.database import get_db
@@ -27,8 +28,7 @@ def create_vessel(vessel_create: VesselCreate, db = Depends( get_db )):
   db_vessel = bus.create_vessel(vessel_create)
   return db_vessel
 
-@router.delete("/", response_model=VesselRead, status_code= status.HTTP_204_NO_CONTENT)
+@router.delete("/", response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
 def delete_vessel(vessel_delete: VesselDelete, db = Depends( get_db )):
   bus = VesselBus(db)
-  db_vessel = bus.delete_vessel(vessel_delete)
-  return db_vessel
+  bus.delete_vessel(vessel_delete)

@@ -10,7 +10,7 @@ class VesselRepo:
 
 
   def get_vessels(self, filter_inactive: bool = True) -> List[Vessel]:
-    if(filter_inactive):
+    if filter_inactive:
       return self._db.query(Vessel).filter(Vessel.is_active == True).all()
     else:
       return self._db.query(Vessel).all()
