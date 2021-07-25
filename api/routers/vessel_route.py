@@ -11,7 +11,7 @@ route_settings = RouteSettings()
 router = APIRouter(prefix = route_settings.vessels)
 
 @router.get("/", response_model=List[VesselRead], status_code= status.HTTP_200_OK)
-def get_vessels( db = Depends( get_db )):
+def get_all_vessels( db = Depends( get_db )):
   bus = VesselBus(db)
   return bus.get_vessels()
 

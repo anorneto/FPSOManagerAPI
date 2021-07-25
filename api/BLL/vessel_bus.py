@@ -28,7 +28,4 @@ class VesselBus:
 
   def delete_vessel(self, vessel_delete: VesselDelete):
     vessel = self.get_vessel_by_code(vessel_delete.code)
-    if vessel:
-      return self._repo.delete_vessel(vessel_delete)
-    else:
-      raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail="Vessel not Found")
+    return self._repo.delete_vessel(vessel_delete)
