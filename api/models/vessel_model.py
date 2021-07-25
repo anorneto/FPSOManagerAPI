@@ -1,21 +1,19 @@
-from typing import List, Optional
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
+import datetime
 
-from pydantic import BaseModel
+from api.database import Base
 
-from .equipment_model import Equipment
+class Vessel(Base):
+    __tablename__ = "vessels"
 
-class VesselBase(BaseModel):
-  code: str
+    id = Column(Integer, primary_key=True, index=True)
+    code = Column(String, unique=True, index=True, nullable=False)
+    is_active = Column(Boolean, index=True, default=True)
 
-class VesselCreate(VesselBase):
-  pass;
+    create_date = Column(DateTime, default=datetime.datetime.now)
+    update_date = Column(DateTime,onupdate=datetime.datetime.now)
+    delete_date = Column(DateTime)
 
-class VesselDelete(VesselBase):
-  pass;
-
-class Vessel(VesselBase):
-  id: int
-  equipments: List[Equipment] = []
-
-  class Config:
-    orm_mode = True
+    equipments = relationship("Equipment", back_populates="owner")
