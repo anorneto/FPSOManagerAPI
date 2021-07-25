@@ -35,7 +35,7 @@ async def update_equipment(vessel_code:str, equipment_update: EquipmentUpdate, d
 @router.delete("/{vessel_code}" + route_settings.equipments, response_model=EquipmentRead, status_code= status.HTTP_200_OK)
 async def delete_vessel(vessel_code:str, eqps_delete_list: List[EquipmentDelete], db = Depends( get_db)):
   bus = EquipmentBus(db)
-  db_equipment_list = bus.delete_equipment(vessel_code= vessel_code, eqps_delete_list= List[EquipmentDelete])
+  db_equipment_list = bus.delete_equipment(vessel_code= vessel_code, eqps_delete_list= eqps_delete_list)
   if db_equipment_list is None:
     raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail="Vessel not found")
   else:
