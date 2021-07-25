@@ -8,6 +8,12 @@ class EquipmentRepo:
   def __init__(self, db: Session):
     self._db = db
 
+  def get_equipment(self,vessel_id: int, filter_inactive: bool = True) -> List[Equipment]:
+    if filter_inactive:
+      return self._db.query(Equipment).filter(Equipment.vessel_id == vessel_id, Equipment.is_active == True).all()
+    else:
+      return self._db.query(Equipment).filter(Equipment.vessel_id == vessel_id).all()
+
   def create_equipment(self, vessel_id: int, equipment_create: EquipmentCreate) -> Equipment:
     db_new_equipment = Equipment( **equipment_create.dict(), vessel_id = vessel_id)
     self._db.add(db_new_equipment)
@@ -25,7 +31,7 @@ class EquipmentRepo:
     self._db.refresh(db_equipment)
     return db_equipment
 
-  def delete_equipment(self, vessel_id: int, eqps_delete_list: List[EquipmentDelete]) -> List[Equipment]:
+  def delete_equipment(self, vessel_id: int, eqps_delete_list: List[EquipmentDelete]) -> None:
     equipments_code_list = list( map( lambda eqp: eqp.code, eqps_delete_list))
     db_equipments_delete_list = self._db.query(Equipment).filter(Equipment.vessel_id == vessel_id, Equipment.code.in_(equipments_code_list)).all()
 
@@ -33,5 +39,4 @@ class EquipmentRepo:
       equipment.is_active = False
 
     self._db.commit()
-    self._db.refresh(db_equipments_delete_list) # FIXME: Return is Failing
-    return db_equipments_delete_list
+    return

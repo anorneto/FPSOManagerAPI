@@ -26,9 +26,8 @@ class VesselRepo:
     return db_new_vessel
 
 
-  def delete_vessel(self, vessel_delete: VesselDelete) -> Vessel:
+  def delete_vessel(self, vessel_delete: VesselDelete) -> None:
     db_delete_vessel = self._db.query(Vessel).filter_by(id = vessel_delete.id).first()
     db_delete_vessel.is_active = False
     self._db.commit()
-    self._db.refresh(db_delete_vessel)
-    return db_delete_vessel
+    return
