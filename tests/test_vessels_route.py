@@ -74,12 +74,11 @@ def test_post_conflict_vessel(vessel_code_fixed: VesselCreate): # validates conf
   json_response = response.json()
   assert json_response.get("detail") == "Vessel already registered"
 
-def test_post_empty_vessel_code(): # validates error when trying to inser empty vessel code
+def test_post_empty_vessel_code(): # validates error when trying to insert empty vessel code
   response = post_vessel({"code" : "                     "})
   assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
   json_response = response.json()
   assert json_response["detail"][0]["msg"] == "Vessel Code cannot be empty."
-
 
 
 def test_get_all_vessels(vessel_code_fixed: VesselCreate): # Get all vessels and check if vessel_code_fixed exists
