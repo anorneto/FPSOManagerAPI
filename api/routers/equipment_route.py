@@ -5,7 +5,7 @@ from fastapi.responses import Response
 from api.settings import RouteSettings
 from api.database import get_db
 from api.bll.equipment_bus import EquipmentBus
-from api.schemas.equipment_schema import EquipmentRead, EquipmentCreate, EquipmentUpdate, EquipmentDelete
+from api.schemas.equipment_schema import EquipmentRead, EquipmentCreate, EquipmentUpdate, EquipmentActiveStatus
 
 route_settings = RouteSettings()
 
@@ -23,13 +23,18 @@ async def create_vessel_equipment(vessel_code:str, equipment_create: EquipmentCr
   db_equipment = bus.create_equipment(vessel_code= vessel_code, equipment_create= equipment_create)
   return db_equipment
 
-@router.patch("/{vessel_code}" + route_settings.equipments, response_model=EquipmentRead, status_code= status.HTTP_200_OK)
+@router.put("/{vessel_code}" + route_settings.equipments, response_model=EquipmentRead, status_code= status.HTTP_200_OK)
 async def update_vessel_equipment(vessel_code:str, equipment_update: EquipmentUpdate, db = Depends( get_db)):
   bus = EquipmentBus(db)
   db_equipment = bus.update_equipment(vessel_code= vessel_code, equipment_update= equipment_update)
   return db_equipment
 
-@router.delete("/{vessel_code}" + route_settings.equipments, response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
-async def delete_vessel_equipment(vessel_code:str, eqps_delete_list: List[EquipmentDelete], db = Depends( get_db)):
+@router.delete("/{vessel_code}" + route_settings.equipments + "/deactivate", response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
+async def deactivate_vessel_equipment(vessel_code:str, eqps_delete_list: List[EquipmentActiveStatus], db = Depends( get_db)):
   bus = EquipmentBus(db)
-  bus.delete_equipment(vessel_code= vessel_code, eqps_delete_list= eqps_delete_list)
+  bus.deactivate_equipment(vessel_code= vessel_code, eqps_delete_list= eqps_delete_list)
+
+@router.patch("/{vessel_code}" + route_settings.equipments + "/activate", response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
+async def activate_vessel_equipment(vessel_code:str, eqps_delete_list: List[EquipmentActiveStatus], db = Depends( get_db)):
+  bus = EquipmentBus(db)
+  bus.activate_equipment(vessel_code= vessel_code, eqps_delete_list= eqps_delete_list)
