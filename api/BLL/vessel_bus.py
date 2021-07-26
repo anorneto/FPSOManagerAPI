@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from api.dal.vessel_repo import VesselRepo
-from api.schemas.vessel_schema import VesselCreate,VesselDelete
+from api.schemas.vessel_schema import VesselCreate
 
 from fastapi import status,HTTPException
 
@@ -9,8 +9,8 @@ class VesselBus:
   def __init__(self, db: Session ):
     self._repo = VesselRepo(db = db)
 
-  def get_vessels(self):
-    return self._repo.get_vessels()
+  def get_vessels(self, filter_inactive: bool = True):
+    return self._repo.get_vessels(filter_inactive= filter_inactive)
 
   def get_vessel_by_code(self, vessel_code: str):
     vessel = self._repo.get_vessel_by_code(vessel_code = vessel_code)
@@ -26,6 +26,10 @@ class VesselBus:
     else:
       return self._repo.create_vessel(vessel_create)
 
-  def delete_vessel(self, vessel_delete: VesselDelete):
-    vessel = self.get_vessel_by_code(vessel_delete.code)
-    return self._repo.delete_vessel(vessel_delete)
+  def deactivate_vessel(self, vessel_code: str):
+    vessel_deactivate= self.get_vessel_by_code(vessel_code)
+    return self._repo.update_vessel_active_status(vessel_code= vessel_deactivate.id, active_status= False)
+
+  def activate_vessel(self, vessel_code: str):
+    vessel_activate = self.get_vessel_by_code(vessel_code)
+    return self._repo.update_vessel_active_status(vessel_code= vessel_activate.id, active_status= True)

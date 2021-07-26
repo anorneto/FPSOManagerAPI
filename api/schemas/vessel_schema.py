@@ -10,10 +10,6 @@ class VesselBase(BaseModel):
 class VesselCreate(VesselBase):
   pass;
 
-class VesselDelete(VesselBase):
-  is_active: bool = False
-  pass;
-
 class VesselRead(VesselBase):
   id: int
   is_active: bool

@@ -35,7 +35,7 @@ setup(
         include=['api', 'api.*'], exclude=['contrib', 'docs', 'tests']),
 
     python_requires='>=3.6',
-    install_requires=['fastapi', 'uvicorn', 'pydantic','sqlalchemy'],
+    install_requires=['fastapi', 'uvicorn', 'pydantic','sqlalchemy','pytest','faker'],
     entry_points={
         'console_scripts': ['fpso-manager=main:main']
     },
