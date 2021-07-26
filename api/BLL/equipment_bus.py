@@ -6,7 +6,7 @@ from fastapi import HTTPException, status
 from api.dal.equipment_repo import EquipmentRepo
 from api.dal.vessel_repo import VesselRepo
 
-from api.schemas.equipment_schema import EquipmentCreate,EquipmentUpdate,EquipmentDelete
+from api.schemas.equipment_schema import EquipmentCreate,EquipmentUpdate,EquipmentActiveStatus
 
 class EquipmentBus:
   def __init__(self, db: Session ):
@@ -28,10 +28,13 @@ class EquipmentBus:
     vessel = self._get_vessel(vessel_code)
     return self._equipment_repo.update_equipment(vessel_id= vessel.id, equipment_update= equipment_update)
 
-  def delete_equipment(self, vessel_code: str, eqps_delete_list: List[EquipmentDelete]):
+  def deactivate_equipment(self, vessel_code: str, eqps_update_status_list: List[EquipmentActiveStatus]):
     vessel = self._get_vessel(vessel_code)
-    return self._equipment_repo.delete_equipment(vessel_id= vessel.id, eqps_delete_list= eqps_delete_list)
+    return self._equipment_repo.update_equipment_status(vessel_id= vessel.id, eqps_update_status_list= eqps_update_status_list, active_status= False)
 
+  def activate_equipment(self, vessel_code: str, eqps_update_status_list: List[EquipmentActiveStatus]):
+    vessel = self._get_vessel(vessel_code)
+    return self._equipment_repo.update_equipment_status(vessel_id= vessel.id, eqps_update_status_list= eqps_update_status_list, active_status= True)
 
   def _get_vessel(self,vessel_code: str):
     vessel =  self._vessel_repo.get_vessel_by_code(vessel_code = vessel_code)

@@ -11,7 +11,7 @@ class EquipmentUpdate(EquipmentBase):
   name: str
   location: str
 
-class EquipmentDelete(EquipmentBase):
+class EquipmentActiveStatus(EquipmentBase):
   pass
 
 class EquipmentRead(EquipmentBase):
