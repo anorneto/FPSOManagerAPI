@@ -28,7 +28,7 @@ def create_vessel(vessel_create: VesselCreate, db = Depends( get_db )):
   db_vessel = bus.create_vessel(vessel_create)
   return db_vessel
 
-@router.delete("/{vessel_code}/deactivate", response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
+""" @router.delete("/{vessel_code}/deactivate", response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
 def deactivate_vessel(vessel_code: str, db = Depends( get_db )):
   bus = VesselBus(db)
   bus.deactivate_vessel(vessel_code=vessel_code)
@@ -36,4 +36,4 @@ def deactivate_vessel(vessel_code: str, db = Depends( get_db )):
 @router.patch("/{vessel_code}/activate", response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
 def activate_vessel(vessel_code: str, db = Depends( get_db )):
   bus = VesselBus(db)
-  bus.activate_vessel(vessel_code=vessel_code)
+  bus.activate_vessel(vessel_code=vessel_code) """

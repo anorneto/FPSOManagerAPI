@@ -26,8 +26,8 @@ class VesselRepo:
     return db_new_vessel
 
 
-  def update_vessel_active_status(self, vessel_id: int, active_status: bool) -> None:
+"""   def update_vessel_active_status(self, vessel_id: int, active_status: bool) -> None:
     db_delete_vessel = self._db.query(Vessel).filter_by(id = vessel_id).first()
     db_delete_vessel.is_active = active_status
     self._db.commit()
-    return
+    return """
