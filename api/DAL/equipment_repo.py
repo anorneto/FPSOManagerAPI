@@ -31,12 +31,12 @@ class EquipmentRepo:
     self._db.refresh(db_equipment)
     return db_equipment
 
-  def update_equipment_status(self, vessel_id: int, eqps_update_status_list: List[EquipmentActiveStatus], update_status: bool) -> None:
+  def update_equipment_status(self, vessel_id: int, eqps_update_status_list: List[EquipmentActiveStatus], active_status: bool) -> None:
     equipments_code_list = list( map( lambda eqp: eqp.code, eqps_update_status_list))
     db_equipments_delete_list = self._db.query(Equipment).filter(Equipment.vessel_id == vessel_id, Equipment.code.in_(equipments_code_list)).all()
 
     for equipment in db_equipments_delete_list:
-      equipment.is_active = update_status
+      equipment.is_active = active_status
 
     self._db.commit()
     return
