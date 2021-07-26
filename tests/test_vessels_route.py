@@ -8,7 +8,7 @@ import pytest
 from faker import Faker
 
 from main import api
-from api.schemas.vessel_schema import VesselCreate, VesselDelete, VesselRead
+from api.schemas.vessel_schema import VesselCreate, VesselRead
 from api.settings import RouteSettings
 
 # Setup
@@ -33,28 +33,27 @@ def vessel_code_fixed() -> VesselCreate:
 # Helpers
 
 def post_vessel(vessel: VesselCreate):
-    print(vessel)
     response = client.post(
         vessel_route,
-        json= {'code': 'yiRUKb'}
+        json= {'code': 'yiRUKb'},
     )
     return response
 
 # Test Cases
 
-
-""" def test_post_created_vessel(vessel_code_fixed: VesselCreate):
+def test_post_created_vessel(vessel_code_fixed: VesselCreate):
     response = post_vessel(vessel_code_fixed)
-    print(vessel_route)
-    print(response)
+    print(api.route)
+    print(response.json())
+    print(response.status_code)
     assert response.status_code == 201
-    assert response.json() == vessel_code_fixed """
+    assert response.json() == vessel_code_fixed
 
-def test_post_conflict_vessel(vessel_code_fixed: VesselCreate):
+""" def test_post_conflict_vessel(vessel_code_fixed: VesselCreate):
   response = post_vessel(vessel_code_fixed)
   assert response.status_code == 409
   assert response.json().detail == "Vessel already registered"
 
 def test_get_all_vessels():
     response = client.get(vessel_route)
-    assert response.status_code == status.HTTP_200_OK
+    assert response.status_code == status.HTTP_200_OK """

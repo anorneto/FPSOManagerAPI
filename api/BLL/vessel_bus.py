@@ -20,7 +20,7 @@ class VesselBus:
       raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail="Vessel not Found")
 
   def create_vessel(self, vessel_create: VesselCreate):
-    vessel = self.get_vessel_by_code(vessel_create.code)
+    vessel = self._repo.get_vessel_by_code(vessel_create.code)
     if vessel:
       raise HTTPException(status_code= status.HTTP_409_CONFLICT, detail="Vessel already registered")
     else:
