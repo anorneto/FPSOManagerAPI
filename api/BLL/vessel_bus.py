@@ -28,8 +28,8 @@ class VesselBus:
 
   def deactivate_vessel(self, vessel_code: str):
     vessel_deactivate= self.get_vessel_by_code(vessel_code)
-    return self._repo.update_vessel_active_status(vessel_code= vessel_deactivate.id, active_status= False)
+    return self._repo.update_vessel_active_status(vessel_id= vessel_deactivate.id, active_status= False)
 
   def activate_vessel(self, vessel_code: str):
     vessel_activate = self.get_vessel_by_code(vessel_code)
-    return self._repo.update_vessel_active_status(vessel_code= vessel_activate.id, active_status= True)
+    return self._repo.update_vessel_active_status(vessel_id= vessel_activate.id, active_status= True)

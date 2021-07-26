@@ -2,7 +2,7 @@ from typing import List
 from sqlalchemy.orm import Session
 
 from api.models.vessel_model import Vessel
-from api.schemas.vessel_schema import VesselCreate,VesselDelete
+from api.schemas.vessel_schema import VesselCreate
 
 class VesselRepo:
   def __init__(self, db: Session):
