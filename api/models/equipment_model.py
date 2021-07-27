@@ -16,7 +16,7 @@ class Equipment(Base):
     vessel_id = Column(Integer, ForeignKey("vessels.id"), index=True)
 
     create_date = Column(DateTime, default=datetime.datetime.now)
-    update_date = Column(DateTime, onupdate=datetime.datetime.now)
-
+    update_date = Column(DateTime,onupdate=datetime.datetime.now)
+    delete_date = Column(DateTime)
 
     owner = relationship("Vessel", back_populates="equipments")

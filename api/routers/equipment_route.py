@@ -5,7 +5,7 @@ from fastapi.responses import Response
 from api.settings import RouteSettings
 from api.database import get_db
 from api.bll.equipment_bus import EquipmentBus
-from api.schemas.equipment_schema import EquipmentRead, EquipmentCreate, EquipmentUpdate, EquipmentActiveStatus
+from api.schemas.equipment_schema import EquipmentRead, EquipmentCreate, EquipmentUpdate, EquipmentDelete
 
 route_settings = RouteSettings()
 
@@ -30,11 +30,6 @@ async def update_vessel_equipment(vessel_code:str, equipment_update: EquipmentUp
   return db_equipment
 
 @router.delete("/{vessel_code}" + route_settings.equipments + "/deactivate", response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
-async def deactivate_vessel_equipment(vessel_code:str, eqps_update_status_list: List[EquipmentActiveStatus], db = Depends( get_db)):
+async def delete_vessel_equipments(vessel_code:str, eqps_delete_list: List[EquipmentDelete], db = Depends( get_db)):
   bus = EquipmentBus(db)
-  bus.deactivate_equipment(vessel_code= vessel_code, eqps_update_status_list= eqps_update_status_list)
-
-@router.patch("/{vessel_code}" + route_settings.equipments + "/activate", response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
-async def activate_vessel_equipment(vessel_code:str, eqps_update_status_list: List[EquipmentActiveStatus], db = Depends( get_db)):
-  bus = EquipmentBus(db)
-  bus.activate_equipment(vessel_code= vessel_code, eqps_update_status_list= eqps_update_status_list)
+  bus.deactivate_equipments(vessel_code= vessel_code, eqps_update_status_list= eqps_delete_list)

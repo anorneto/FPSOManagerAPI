@@ -10,14 +10,13 @@ class VesselBase(BaseModel):
 class VesselCreate(VesselBase):
   @validator("code", pre=True, always=True)
   def check_code(cls,code_string):
-    assert bool(code_string and not code_string.isspace()), "Vessel Code cannot be empty."
+    assert bool(code_string and not code_string.isspace()), "Vessel Code cannot be empty"
     return code_string.strip()
 
   pass;
 
 class VesselRead(VesselBase):
   id: int
-  is_active: bool
   equipments: List[EquipmentRead] = []
 
   class Config:

@@ -6,7 +6,7 @@ from fastapi import HTTPException, status
 from api.dal.equipment_repo import EquipmentRepo
 from api.dal.vessel_repo import VesselRepo
 
-from api.schemas.equipment_schema import EquipmentCreate,EquipmentUpdate,EquipmentActiveStatus
+from api.schemas.equipment_schema import EquipmentCreate,EquipmentUpdate,EquipmentDelete
 
 class EquipmentBus:
   def __init__(self, db: Session ):
@@ -15,7 +15,7 @@ class EquipmentBus:
 
   def get_equipments(self,vessel_code: str, filter_inactive: str = True):
     vessel = self._get_vessel(vessel_code= vessel_code)
-    return self._equipment_repo.get_equipment(vessel_id= vessel.id, filter_inactive= filter_inactive)
+    return self._equipment_repo.get_equipments(vessel_id= vessel.id, filter_inactive= filter_inactive)
 
   def create_equipment(self, vessel_code: str, equipment_create: EquipmentCreate):
     vessel = self._get_vessel(vessel_code)
@@ -26,15 +26,15 @@ class EquipmentBus:
 
   def update_equipment(self, vessel_code: str, equipment_update: EquipmentUpdate):
     vessel = self._get_vessel(vessel_code)
-    return self._equipment_repo.update_equipment(vessel_id= vessel.id, equipment_update= equipment_update)
+    equipment = self._equipment_repo.get_single_equipment(vessel_id= vessel.id, equipment_code= equipment_update.code)
+    if equipment:
+      return self._equipment_repo.update_equipment(vessel_id= vessel.id, equipment_update= equipment_update)
+    else:
+      raise HTTPException(status_code= status.HTTP_404_NOT_FOUND, detail="Equipment not found")
 
-  def deactivate_equipment(self, vessel_code: str, eqps_update_status_list: List[EquipmentActiveStatus]):
+  def delete_equipments(self, vessel_code: str, eqps_delete_list: List[EquipmentDelete]):
     vessel = self._get_vessel(vessel_code)
-    return self._equipment_repo.update_equipment_status(vessel_id= vessel.id, eqps_update_status_list= eqps_update_status_list, active_status= False)
-
-  def activate_equipment(self, vessel_code: str, eqps_update_status_list: List[EquipmentActiveStatus]):
-    vessel = self._get_vessel(vessel_code)
-    return self._equipment_repo.update_equipment_status(vessel_id= vessel.id, eqps_update_status_list= eqps_update_status_list, active_status= True)
+    return self._equipment_repo.delete_equipments(vessel_id= vessel.id, eqps_delete_list= eqps_delete_list)
 
   def _get_vessel(self,vessel_code: str):
     vessel =  self._vessel_repo.get_vessel_by_code(vessel_code = vessel_code)
