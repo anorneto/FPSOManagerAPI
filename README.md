@@ -7,6 +7,7 @@ Python backend to manage different equipment of an FPSO.
     - [Run without installing](#run-without-installing)
     - [Installing the application](#installing-the-application)
   - [Usage](#usage)
+  - [Tests](#tests)
 
 ## Packages Used
 * [FastAPI](https://fastapi.tiangolo.com/) - Web Framework for building APIs.
@@ -44,3 +45,15 @@ Python backend to manage different equipment of an FPSO.
 The API runs by default at <http://localhost:8000>
 
 When the application is runinng, the Swagger documentation for the API is located at <http://localhost:8000/docs> .
+
+![alt text](docs/imgs/swagger.png)
+
+The Swagger documentation contains all endpoints' schemas and possible responses. It also allows to try the requests.
+
+![alt text](docs/imgs/swagger_endpoint_example.png)
+
+## Tests
+
+To run the tests, execute ```pytest``` from the repositorie root
+
+![alt text](docs/imgs/tests.png)
