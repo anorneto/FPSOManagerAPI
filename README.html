@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>FPSOManagerAPI</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="fpsomanagerapi">FPSOManagerAPI</h1>
+<p>Python backend to manage different equipment of an FPSO.</p>
+<ul>
+<li><a href="#fpsomanagerapi">FPSOManagerAPI</a>
+<ul>
+<li><a href="#packages-used">Packages Used</a></li>
+<li><a href="#project-set-up">Project Set up</a>
+<ul>
+<li><a href="#run-without-installing">Run without installing</a></li>
+<li><a href="#installing-the-application">Installing the application</a></li>
+</ul>
+</li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#tests">Tests</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="packages-used">Packages Used</h2>
+<ul>
+<li><a href="https://fastapi.tiangolo.com/">FastAPI</a> - Web Framework for building APIs.</li>
+<li><a href="https://www.uvicorn.org/">uvicorn</a> - ASGI (Asynchronous Server Gateway Interface) server implementation.</li>
+<li><a href="https://pydantic-docs.helpmanual.io/">pydantic</a> - API Schema validation, automatic serialize and deserialize jsons and settings management using python type annotations.</li>
+<li><a href="https://www.sqlalchemy.org/">SQLalchemy</a> - ORM (Object Relational Mapper) used for database communication</li>
+<li><a href="https://www.sqlite.org/index.html">SQLite</a> - Small SQL database engine used for data persistence</li>
+<li><a href="https://pytest.org">pytest</a> - Testing Framework</li>
+<li><a href="https://faker.readthedocs.io/en/master/">Faker</a> - Fake data generation for tests</li>
+</ul>
+<h2 id="project-set-up">Project Set up</h2>
+<h3 id="run-without-installing">Run without installing</h3>
+<ol>
+<li>Install requirements:<pre><code class="language-sh"><div>pip install -r requirements.txt
+</div></code></pre>
+</li>
+<li>Run the application:<pre><code class="language-sh"><div>python main.py
+</div></code></pre>
+</li>
+</ol>
+<h3 id="installing-the-application">Installing the application</h3>
+<ol>
+<li>Install the application:<pre><code class="language-sh"><div>pip install .
+</div></code></pre>
+</li>
+<li>Run the application:<pre><code class="language-sh"><div>fpso-manager
+</div></code></pre>
+</li>
+</ol>
+<h2 id="usage">Usage</h2>
+<p>The API runs by default at <a href="http://localhost:8000">http://localhost:8000</a></p>
+<p>When the application is runinng, the Swagger documentation for the API is located at <a href="http://localhost:8000/docs">http://localhost:8000/docs</a> .</p>
+<p><img src="file:///d:\DEV\FPSOManagerAPI\docs\imgs\swagger.png" alt="alt text"></p>
+<p>The Swagger documentation contains all endpoints' schemas and possible responses. It also allows to try the requests.</p>
+<p><img src="file:///d:\DEV\FPSOManagerAPI\docs\imgs\swagger_endpoint_example.png" alt="alt text"></p>
+<h2 id="tests">Tests</h2>
+<p>To run the tests, execute <code>pytest</code> from the repositorie root</p>
+<p><img src="file:///d:\DEV\FPSOManagerAPI\docs\imgs\tests.png" alt="alt text"></p>
+
+    </body>
+    </html>
