@@ -16,4 +16,4 @@ class Vessel(Base):
     update_date = Column(DateTime, nullable=True)
     delete_date = Column(DateTime, nullable=True)
 
-    equipments = relationship("Equipment", back_populates="owner")
+    equipments = relationship("Equipment",primaryjoin="and_(Vessel.id==Equipment.vessel_id,Equipment.is_active==True)", back_populates="owner")
