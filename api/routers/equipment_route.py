@@ -32,4 +32,4 @@ async def update_vessel_equipment(vessel_code:str, equipment_update: EquipmentUp
 @router.delete("/{vessel_code}" + route_settings.equipments + "/deactivate", response_class=Response, status_code= status.HTTP_204_NO_CONTENT)
 async def delete_vessel_equipments(vessel_code:str, eqps_delete_list: List[EquipmentDelete], db = Depends( get_db)):
   bus = EquipmentBus(db)
-  bus.deactivate_equipments(vessel_code= vessel_code, eqps_update_status_list= eqps_delete_list)
+  bus.delete_equipments(vessel_code= vessel_code, eqps_delete_list= eqps_delete_list)
