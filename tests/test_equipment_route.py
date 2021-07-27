@@ -187,12 +187,3 @@ def test_equipment_create_exists_del_doesnt_exists(vessel_fixed: VesselCreate, l
   assert response_get.status_code == status.HTTP_200_OK
   for equipment_deleted in list_equipment_create_delete_fixed:
     assert not any(equipment.get("code") == equipment_deleted.get("code") for equipment in response_get.json())
-
-# validates equipments are listed when passing "filter_inactive=False" to the route
-def test_equipment_create_exists_when_filter_inactive_false(vessel_fixed: VesselCreate, list_equipment_create_delete_fixed: List[EquipmentDelete]):
-  vessel_code = vessel_fixed.get("code")
-
-  response_get = get_equipments(vessel_code=vessel_code, filter_inactive=False)
-  assert response_get.status_code == status.HTTP_200_OK
-  for equipment_deleted in list_equipment_create_delete_fixed:
-    assert any(equipment.get("code") == equipment_deleted.get("code") for equipment in response_get.json())

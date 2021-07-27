@@ -22,9 +22,9 @@ router = APIRouter(prefix = route_settings.vessels)
     404:  {"description": "Vessel not Found", "content":{ "application/json": { "example": {"detail": "Vessel not found"} } }}
   }
 )
-async def get_vessel_equipments(vessel_code:str, filter_inactive: bool = True, db = Depends( get_db)):
+async def get_vessel_equipments(vessel_code:str, db = Depends( get_db)):
   bus = EquipmentBus(db)
-  db_active_equipments_list = bus.get_equipments(vessel_code= vessel_code, filter_inactive= filter_inactive)
+  db_active_equipments_list = bus.get_equipments(vessel_code= vessel_code)
   return db_active_equipments_list
 
 @router.post(

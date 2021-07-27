@@ -13,9 +13,9 @@ class EquipmentBus:
     self._equipment_repo = EquipmentRepo(db = db)
     self._vessel_repo = VesselRepo( db = db)
 
-  def get_equipments(self,vessel_code: str, filter_inactive: str = True):
+  def get_equipments(self,vessel_code: str):
     vessel = self._get_vessel(vessel_code= vessel_code)
-    return self._equipment_repo.get_equipments(vessel_id= vessel.id, filter_inactive= filter_inactive)
+    return self._equipment_repo.get_equipments(vessel_id= vessel.id)
 
   def create_equipment(self, vessel_code: str, equipment_create: EquipmentCreate):
     vessel = self._get_vessel(vessel_code)
